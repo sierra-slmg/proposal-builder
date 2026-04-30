@@ -220,6 +220,8 @@ input[type=range]{width:100%;accent-color:var(--text);}
       <button class="btn-outline" onclick="printProposal()">&#128438; Print / Save as PDF</button>
       <button class="btn-solid" onclick="saveProposal()">&#128190; Save to proposal library</button>
       <button class="btn-outline" style="margin-top:6px;" onclick="generateLetter()">&#9997; Generate written letter</button>
+      <button class="btn-solid" style="margin-top:6px;background:#0f9d58;" onclick="saveAndPushToLeftLane()">&#128202; Save &amp; Push to LeftLane</button>
+      <button class="btn-outline" style="margin-top:6px;" onclick="window.open('https://app.leftlanesoftware.com/pipeline/deals','_blank')">&#128279; Open LeftLane</button>
       <button class="btn-solid" style="margin-top:6px;" onclick="window.open('https://account.appfolio.com/realms/property/protocol/openid-connect/auth?client_id=client-806bfd59-74a1-40f8-9fc0-4e39e9b5689b&kc_idp_hint&redirect_uri=https%3A%2F%2Fsilverlandsmgmt.appfolio.com%2Fusers%2Foauth%2Fcallback&response_type=code&scope=openid%20offline_access%20login_app%20af.property%3A806bfd59-74a1-40f8-9fc0-4e39e9b5689b&state=%2F', '_blank')">&#127968; Open in AppFolio</button>
     </div>
   </div>
@@ -6002,6 +6004,35 @@ function saveProposal(){
   const idx=lotVal.split('||')[2];
   const rec={id:'p_'+Date.now(),savedAt:new Date().toISOString(),tenant:getTenant(),property:H.p,lot:H.l,agentName:ag.name,agentCompany:ag.company,price:Math.round(d.price),mpmt:Math.round(d.mpmt),newTotal:Math.round(d.newTotal),signing:Math.round(d.signing),rate:(d.rate*100).toFixed(1),term:d.term,variance:Math.round(d.variance),notes:ag.notes,homeModel:H.mfr+' '+H.mdl,condition:H.cond,lotKey:p+'||'+H.l+'||'+idx,isVacant:!H.t};
   const arr=getSaved();arr.unshift(rec);setSaved(arr);notify('Proposal saved!');updateBadge();
+}
+
+  function saveAndPushToLeftLane(){
+  if(!H||!lastCalc){alert('Please select a lot first.');return;}
+  saveProposal();
+  const recs=getSaved();
+  if(!recs.length){notify('Nothing to push.');return;}
+  const rec=recs[0];
+  const labels={tenant:'Buyer Name',property:'Community',lot:'Lot',homeModel:'Model',manufacturer:'Manufacturer',price:'Sales Price',mpmt:'Mortgage Payment',newTotal:'Total Monthly Payment',dueAtSigning:'Due at Signing',downPayment:'Down Payment',interestRate:'Interest Rate',term:'Loan Term',agentName:'Agent',agentCompany:'Company',condition:'Condition'};
+  const skip=['id','savedAt','lotKey','isVacant','variance'];
+  const dollarFields=['price','mpmt','newTotal','dueAtSigning','downPayment'];
+  const lines=['SILVER LANDS / STUDIO 168 — PROPOSAL',''];
+  for(const [k,v] of Object.entries(rec)){
+    if(skip.includes(k))continue;
+    if(v===''||v==null)continue;
+    const lbl=labels[k]||k;
+    let dv=v;
+    if(typeof v==='number'&&dollarFields.includes(k))dv='$'+v.toLocaleString();
+    if(k==='interestRate'&&typeof v==='number')dv=v+'%';
+    lines.push(lbl+': '+dv);
+  }
+  const text=lines.join('\n');
+  navigator.clipboard.writeText(text).then(()=>{
+    notify('Saved & copied! Opening LeftLane — paste into the deal form.');
+    setTimeout(()=>window.open('https://app.leftlanesoftware.com/pipeline/deals','_blank'),400);
+  }).catch(()=>{
+    notify('Saved. Clipboard failed — opening LeftLane.');
+    window.open('https://app.leftlanesoftware.com/pipeline/deals','_blank');
+  });
 }
 
 function loadSaved(){
