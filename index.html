@@ -6116,6 +6116,7 @@ function recalcAllInTotal(){
   const total = mortgage + ch.lotRent + ch.mhTax + ch.mhInsurance + SERVICING_FEE;
   const el = document.getElementById('all-in-total');
   if(el) el.textContent = '$' + total.toLocaleString();
+  const rt = document.getElementById('r-total'); if(rt) rt.textContent = '$' + total.toLocaleString();
   const breakEl = document.getElementById('all-in-breakdown');
   if(breakEl){
     breakEl.innerHTML = 'Mortgage: $' + mortgage.toLocaleString() + ' &nbsp;·&nbsp; Lot Rent: $' + ch.lotRent.toLocaleString() + ' &nbsp;·&nbsp; MH Tax: $' + ch.mhTax.toLocaleString() + ' &nbsp;·&nbsp; MH Insurance: $' + ch.mhInsurance.toLocaleString() + ' &nbsp;·&nbsp; Servicing: $' + SERVICING_FEE;
