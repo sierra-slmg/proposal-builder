@@ -217,6 +217,18 @@ input[type=range]{width:100%;accent-color:var(--text);}
         <div id="prop-content"></div>
       </div>
       <hr class="divider">
+     <div id="property-charges-card" style="margin-top:12px;padding:12px;border:1px solid var(--bg3);border-radius:6px;background:var(--bg2);">
+                  <div style="font-weight:600;margin-bottom:8px;font-size:14px;">Property Charges <span style="font-weight:400;font-size:11px;color:var(--text2);">(auto-fills when you pick a community — editable)</span></div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+                    <label style="font-size:12px;">Lot Rent<br><input id="inp-lot-rent" type="number" min="0" step="1" placeholder="0" style="width:100%;padding:6px;margin-top:2px;"></label>
+                    <label style="font-size:12px;">MH Property Tax<br><input id="inp-mh-tax" type="number" min="0" step="1" placeholder="0" style="width:100%;padding:6px;margin-top:2px;"></label>
+                    <label style="font-size:12px;">MH Property Insurance<br><input id="inp-mh-insurance" type="number" min="0" step="1" placeholder="0" style="width:100%;padding:6px;margin-top:2px;"></label>
+                  </div>
+                  <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bg3);font-size:12px;color:var(--text2);">
+                    <div id="all-in-breakdown">Pick a community/lot and enter loan terms to see the breakdown.</div>
+                    <div style="margin-top:8px;font-size:18px;font-weight:700;color:var(--text);">All-In Monthly: <span id="all-in-total">$0</span></div>
+                  </div>
+                </div>
       <button class="btn-outline" onclick="printProposal()">&#128438; Print / Save as PDF</button>
       <button class="btn-solid" onclick="saveProposal()">&#128190; Save to proposal library</button>
       <button class="btn-outline" style="margin-top:6px;" onclick="generateLetter()">&#9997; Generate written letter</button>
