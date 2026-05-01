@@ -6015,6 +6015,7 @@ function saveProposal(){
   const lotVal=document.getElementById('sel-lot').value;
   const idx=lotVal.split('||')[2];
   const rec={id:'p_'+Date.now(),savedAt:new Date().toISOString(),tenant:getTenant(),property:H.p,lot:H.l,agentName:ag.name,agentCompany:ag.company,price:Math.round(d.price),mpmt:Math.round(d.mpmt),newTotal:Math.round(d.newTotal),signing:Math.round(d.signing),rate:(d.rate*100).toFixed(1),term:d.term,variance:Math.round(d.variance),notes:ag.notes,homeModel:H.mfr+' '+H.mdl,condition:H.cond,lotKey:p+'||'+H.l+'||'+idx,isVacant:!H.t};
+  const _ch=getPropertyCharges();rec.lotRent=_ch.lotRent;rec.mhTax=_ch.mhTax;rec.mhInsurance=_ch.mhInsurance;rec.allInMonthly=Math.round((rec.mpmt||0)+_ch.lotRent+_ch.mhTax+_ch.mhInsurance+SERVICING_FEE);
   const arr=getSaved();arr.unshift(rec);setSaved(arr);notify('Proposal saved!');updateBadge();
 }
 
