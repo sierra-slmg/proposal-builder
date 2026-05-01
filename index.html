@@ -5883,11 +5883,12 @@ function renderSummary(d){
     ['Due at signing',f$(d.signing)],
     ['Loan amount',f$(d.loan)],
     ['Monthly mortgage',f$(d.mpmt)],
-    ['Lot rent',d.lr?f$(H.lr):'TBD'],
-    ['Tax escrow',f$(d.TAX)],
-    ['Insurance escrow',f$(d.INS)],
+['Lot rent',f$(getPropertyCharges().lotRent)],
+['Tax escrow',f$(getPropertyCharges().mhTax)],
+  ['Insurance escrow',f$(getPropertyCharges().mhInsurance)],
     ['Servicing fee',f$(d.SVC)],
   ];
+  const _ch=getPropertyCharges();d.newTotal=Math.round((d.mpmt||0)+_ch.lotRent+_ch.mhTax+_ch.mhInsurance+(d.SVC||60));
   rows.forEach(([l,v])=>html+=`<div class="cr"><span class="rl">${l}</span><span class="rv">${v}</span></div>`);
   html+=`<div class="tr"><span class="tl">New total monthly</span><span class="tv">${f$(d.newTotal)}</span></div>`;
   if(H.tm)html+=`<div class="cr" style="margin-top:6px;"><span class="rl">Change vs current</span><span class="rv ${vc}">${vs}${f$(d.variance)}/mo</span></div>`;
@@ -6119,6 +6120,7 @@ function recalcAllInTotal(){
   if(breakEl){
     breakEl.innerHTML = 'Mortgage: $' + mortgage.toLocaleString() + ' &nbsp;·&nbsp; Lot Rent: $' + ch.lotRent.toLocaleString() + ' &nbsp;·&nbsp; MH Tax: $' + ch.mhTax.toLocaleString() + ' &nbsp;·&nbsp; MH Insurance: $' + ch.mhInsurance.toLocaleString() + ' &nbsp;·&nbsp; Servicing: $' + SERVICING_FEE;
   }
+ if(typeof renderSummary==='function' && typeof lastCalc!=='undefined' && lastCalc){ try{renderSummary(lastCalc);}catch(e){} }
 }
 
 (async function(){
