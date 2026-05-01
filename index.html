@@ -6025,10 +6025,9 @@ function saveProposal(){
   const recs=getSaved();
   if(!recs.length){notify('Nothing to push.');return;}
   const rec=recs[0];
-  const labels={tenant:'Buyer Name',property:'Community',lot:'Lot',homeModel:'Model',manufacturer:'Manufacturer',price:'Sales Price',mpmt:'Mortgage Payment',newTotal:'Total Monthly Payment',dueAtSigning:'Due at Signing',downPayment:'Down Payment',interestRate:'Interest Rate',term:'Loan Term',agentName:'Agent',agentCompany:'Company',condition:'Condition'};
+ const labels={tenant:'Buyer Name',property:'Community',lot:'Lot',homeModel:'Model',manufacturer:'Manufacturer',price:'Sales Price',mpmt:'Mortgage Payment',newTotal:'Total Monthly Payment',dueAtSigning:'Due at Signing',downPayment:'Down Payment',interestRate:'Interest Rate',term:'Loan Term',agentName:'Agent',agentCompany:'Company',condition:'Condition',lotRent:'Lot Rent',mhTax:'MH Property Tax',mhInsurance:'MH Property Insurance',allInMonthly:'All-In Monthly Payment'};
   const skip=['id','savedAt','lotKey','isVacant','variance'];
-  const dollarFields=['price','mpmt','newTotal','dueAtSigning','downPayment'];
-  const lines=['SILVER LANDS / STUDIO 168 — PROPOSAL',''];
+const dollarFields=['price','mpmt','newTotal','dueAtSigning','downPayment','lotRent','mhTax','mhInsurance','allInMonthly'];  const lines=['SILVER LANDS / STUDIO 168 — PROPOSAL',''];
   for(const [k,v] of Object.entries(rec)){
     if(skip.includes(k))continue;
     if(v===''||v==null)continue;
