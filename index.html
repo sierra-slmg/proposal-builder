@@ -6073,6 +6073,65 @@ function reopenProposal(id){
 }
 
 init();
+  // === Property Charges feature ===
+let LOTS_DATA = {};
+const SERVICING_FEE = 60;
+
+async function loadLotsData(){
+  try{
+    const r = await fetch('lots.json?v=' + Date.now());
+    const d = await r.json();
+    LOTS_DATA = {};
+    for(const c of d.communities){ LOTS_DATA[c.name] = c; }
+    console.log('Loaded ' + d.communities.length + ' community defaults');
+  }catch(e){ console.error('Could not load lots.json:', e); }
+}
+
+function applyCommunityCharges(){
+  const propEl = document.getElementById('sel-prop');
+  if(!propEl) return;
+  const community = propEl.value;
+  const data = LOTS_DATA[community];
+  if(!data) return;
+  const lr = document.getElementById('inp-lot-rent');
+  const tx = document.getElementById('inp-mh-tax');
+  const ins = document.getElementById('inp-mh-insurance');
+  if(lr && (lr.value === '' || lr.value === '0' || lr.dataset.auto === '1')){ lr.value = data.defaultLotRent; lr.dataset.auto = '1'; }
+  if(tx && (tx.value === '' || tx.value === '0' || tx.dataset.auto === '1')){ tx.value = data.defaultTax; tx.dataset.auto = '1'; }
+  if(ins && (ins.value === '' || ins.value === '0' || ins.dataset.auto === '1')){ ins.value = data.defaultInsurance; ins.dataset.auto = '1'; }
+  recalcAllInTotal();
+}
+
+function getPropertyCharges(){
+  const lr = parseFloat((document.getElementById('inp-lot-rent')||{}).value) || 0;
+  const tx = parseFloat((document.getElementById('inp-mh-tax')||{}).value) || 0;
+  const ins = parseFloat((document.getElementById('inp-mh-insurance')||{}).value) || 0;
+  return { lotRent: lr, mhTax: tx, mhInsurance: ins };
+}
+
+function recalcAllInTotal(){
+  const ch = getPropertyCharges();
+  const mortgage = (typeof lastCalc !== 'undefined' && lastCalc) ? Math.round(lastCalc.mpmt || 0) : 0;
+  const total = mortgage + ch.lotRent + ch.mhTax + ch.mhInsurance + SERVICING_FEE;
+  const el = document.getElementById('all-in-total');
+  if(el) el.textContent = '$' + total.toLocaleString();
+  const breakEl = document.getElementById('all-in-breakdown');
+  if(breakEl){
+    breakEl.innerHTML = 'Mortgage: $' + mortgage.toLocaleString() + ' &nbsp;·&nbsp; Lot Rent: $' + ch.lotRent.toLocaleString() + ' &nbsp;·&nbsp; MH Tax: $' + ch.mhTax.toLocaleString() + ' &nbsp;·&nbsp; MH Insurance: $' + ch.mhInsurance.toLocaleString() + ' &nbsp;·&nbsp; Servicing: $' + SERVICING_FEE;
+  }
+}
+
+(async function(){
+  await loadLotsData();
+  const propEl = document.getElementById('sel-prop');
+  if(propEl) propEl.addEventListener('change', applyCommunityCharges);
+  ['inp-lot-rent','inp-mh-tax','inp-mh-insurance'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el){ el.addEventListener('input', () => { el.dataset.auto = '0'; recalcAllInTotal(); }); }
+  });
+  document.body.addEventListener('input', recalcAllInTotal);
+  recalcAllInTotal();
+})();
 </script>
 </body>
 </html>
