@@ -6095,7 +6095,7 @@ function applyCommunityCharges(){
   if(!data) return;
   let lotInfo = null;
   if(lotEl && lotEl.value && data.lots){
-    lotInfo = data.lots[String(lotEl.value).trim()] || null;
+    const _v=String(lotEl.value).trim();const _k=_v.includes('||')?_v.split('||')[1].trim():_v;lotInfo=data.lots[_k]||null;
   }
   const lotRent = (lotInfo && lotInfo.lotRent>0) ? lotInfo.lotRent : data.defaultLotRent;
   const mhTax = (lotInfo && lotInfo.mhTax>0) ? lotInfo.mhTax : data.defaultTax;
