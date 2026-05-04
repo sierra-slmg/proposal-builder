@@ -147,7 +147,8 @@ input[type=range]{width:100%;accent-color:var(--text);}
         </div>
       </div>
       <div id="vacant-wrap" style="display:none;">
-        <div class="vacant-banner">&#9888; This lot is vacant — enter prospective buyer name below.</div>
+        <div class="vacant-banner">&#9888; This lot is vacant — enter Buyer name (auto-fills with current tenant — edit to override)
+ below.</div>
         <div style="margin-bottom:10px;"><label>Prospective buyer name</label><input type="text" id="tenant-name-override" placeholder="First Last" oninput="softUpdate()"></div>
       </div>
       <div class="g4" id="lot-details" style="display:none;">
@@ -6055,8 +6056,7 @@ function loadSaved(){
   el.innerHTML=records.map(r=>{
     const date=new Date(r.savedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
     const vs=r.variance>=0?'+':'';const vc=r.variance>=0?'color:#065f46':'color:#dc2626';
-    const vb=r.isVacant?'<span style="font-size:10px;background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:10px;margin-left:4px;">Vacant</span>':'';
-    return `<div class="saved-item"><div class="saved-info"><div class="saved-name">${r.tenant}${vb}</div><div class="saved-meta">${r.property} · Lot ${r.lot} · ${r.homeModel}</div><div class="saved-meta">${f$(r.price)} · ${r.rate}% / ${r.term} yrs · ${f$(r.newTotal)}/mo ${r.variance?`<span style="${vc}">(${vs}${f$(r.variance)})</span>`:''}</div><div class="saved-meta">Saved ${date} · ${r.agentName}</div></div><div class="saved-actions"><button class="btn-sm" onclick="reopenProposal('${r.id}')">Open</button><button class="btn-sm-danger" onclick="deleteProposal('${r.id}')">Delete</button></div></div>`;
+document.getElementById('vacant-wrap').style.display='block';const _t=document.getElementById('tenant-name-override');if(_t)_t.value=(H&&H.t)?H.t:'';const _b=document.querySelector('#vacant-wrap .vacant-banner');if(_b)_b.style.display=isVacant?'block':'none';    return `<div class="saved-item"><div class="saved-info"><div class="saved-name">${r.tenant}${vb}</div><div class="saved-meta">${r.property} · Lot ${r.lot} · ${r.homeModel}</div><div class="saved-meta">${f$(r.price)} · ${r.rate}% / ${r.term} yrs · ${f$(r.newTotal)}/mo ${r.variance?`<span style="${vc}">(${vs}${f$(r.variance)})</span>`:''}</div><div class="saved-meta">Saved ${date} · ${r.agentName}</div></div><div class="saved-actions"><button class="btn-sm" onclick="reopenProposal('${r.id}')">Open</button><button class="btn-sm-danger" onclick="deleteProposal('${r.id}')">Delete</button></div></div>`;
   }).join('');
 }
 
