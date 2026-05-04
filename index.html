@@ -5757,8 +5757,7 @@ function onLot(){
   document.getElementById('d-tenant').textContent=H.t||'[Vacant]';
   document.getElementById('lot-details').style.display='grid';
   const isVacant=!H.t;
-  document.getElementById('vacant-wrap').style.display='block';const _t=document.getElementById('tenant-name-override');if(_t)_t.value=(H&&H.t)?H.t:'';const _b=document.querySelector('#vacant-wrap .vacant-banner');if(_b)_b.style.display=isVacant?'block':'none';e';
-  if(!isVacant)document.getElementById('tenant-name-override').value='';
+document.getElementById('vacant-wrap').style.display=isVacant?'block':'none';  if(!isVacant)document.getElementById('tenant-name-override').value='';
   document.getElementById('calc-card').style.display='block';
   if(!H.np&&H.sp>0)document.getElementById('sales-price').value=H.sp;
   else document.getElementById('sales-price').value='';
