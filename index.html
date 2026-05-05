@@ -6104,7 +6104,7 @@ function applyCommunityCharges(){
   const tx = document.getElementById('inp-mh-tax');
   const ins = document.getElementById('inp-mh-insurance');
   if(lr && (lr.value === '' || lr.value === '0' || lr.dataset.auto === '1')){ lr.value = lotRent; lr.dataset.auto = '1'; }
-  if(tx && (tx.value === '' || tx.value === '0' || tx.dataset.auto === '1')){ tx.value = mhTax; tx.dataset.auto = '1'; }
+  if(tx && (tx.value === '' || tx.value === '0' || tx.dataset.auto === '1')){ tx.value = mhTax; tx.dataset.auto = '1'; } if(ins && (ins.value === '' || ins.value === '0' || ins.dataset.auto === '1')){ ins.value = mhIns; ins.dataset.auto = '1'; } const sp = document.getElementById('sales-price'); if(sp && lotInfo){ setTimeout(() => { sp.value = lotInfo.salesPrice > 0 ? lotInfo.salesPrice : ''; sp.dispatchEvent(new Event('input', {bubbles:true})); }, 0); }
   recalcAllInTotal();
 }
 
