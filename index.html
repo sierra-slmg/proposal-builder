@@ -186,11 +186,11 @@ input[type=range]{width:100%;accent-color:var(--text);}
           <input type="number" id="target-pmt" min="50" step="10" placeholder="e.g. 350" oninput="calc()">
         </div>
       </div>
-      <div class="sl-row"><label>Interest rate</label><span id="rate-val">13.0%</span></div>
-                  <input type="range" id="rate-slider" min="8" max="24" step="0.5" value="13" oninput="onRate()" style="margin-bottom:12px;">
+      <div class="sl-row"><label>Interest rate</label><span id="rate-val">16.0%</span></div>
+                  <input type="range" id="rate-slider" min="8" max="24" step="0.5" value="16" oninput="onRate()" style="margin-bottom:12px;">
 
 
-      <input type="range" id="rate-slider" min="8" max="24" step="0.5" value="13" oninput="onRate()" style="margin-bottom:12px;">
+      <input type="range" id="rate-slider" min="8" max="24" step="0.5" value="16" oninput="onRate()" style="margin-bottom:12px;">
       <div class="sl-row"><label>Loan term</label><span id="term-val">20 yrs</span></div>
       <input type="range" id="term-slider" min="5" max="30" step="1" value="20" oninput="onTerm()" style="margin-bottom:12px;">
       <div class="sl-row"><label>Down payment</label><span id="down-val">5%</span></div>
@@ -6075,7 +6075,7 @@ function reopenProposal(id){
   switchMain('builder');showTab('proposal');notify('Loaded!');
 }
 
-init();setTimeout(()=>{const ts=document.getElementById('term-slider');const tv=document.getElementById('term-val');if(ts&&ts.value!=='20'){ts.value='20';if(tv)tv.textContent='20 yrs';}const rs=document.getElementById('rate-slider');const rv=document.getElementById('rate-val');if(rs&&rs.value!=='13'){rs.value='13';if(rv)rv.textContent='13.0%';}const ds=document.getElementById('down-slider');const dv=document.getElementById('down-val');if(ds&&ds.value!=='5'){ds.value='5';if(dv)dv.textContent='5%';}if(typeof calc==='function'){try{calc();}catch(e){}}},200);
+init();setTimeout(()=>{const ts=document.getElementById('term-slider');const tv=document.getElementById('term-val');if(ts&&ts.value!=='20'){ts.value='20';if(tv)tv.textContent='20 yrs';}const rs=document.getElementById('rate-slider');const rv=document.getElementById('rate-val');if(rs&&rs.value!=='16'){rs.value='16';if(rv)rv.textContent='16.0%';}const ds=document.getElementById('down-slider');const dv=document.getElementById('down-val');if(ds&&ds.value!=='5'){ds.value='5';if(dv)dv.textContent='5%';}if(typeof calc==='function'){try{calc();}catch(e){}}},200);
   // === Property Charges feature ===
 let LOTS_DATA = {};
 const SERVICING_FEE = 60;
@@ -6107,7 +6107,7 @@ function applyCommunityCharges(){
   const tx = document.getElementById('inp-mh-tax');
   const ins = document.getElementById('inp-mh-insurance');
   if(lr && (lr.value === '' || lr.value === '0' || lr.dataset.auto === '1')){ lr.value = lotRent; lr.dataset.auto = '1'; }
-  if(tx && (tx.value === '' || tx.value === '0' || tx.dataset.auto === '1')){ tx.value = mhTax; tx.dataset.auto = '1'; } if(ins && (ins.value === '' || ins.value === '0' || ins.dataset.auto === '1')){ ins.value = mhIns; ins.dataset.auto = '1'; } const sp = document.getElementById('sales-price'); if(sp && lotInfo){ setTimeout(() => { sp.value = lotInfo.salesPrice > 0 ? lotInfo.salesPrice : ''; sp.dispatchEvent(new Event('input', {bubbles:true})); }, 0); }
+  if(tx && (tx.value === '' || tx.value === '0' || tx.dataset.auto === '1')){ tx.value = mhTax; tx.dataset.auto = '1'; } if(ins && (ins.value === '' || ins.value === '0' || ins.dataset.auto === '1')){ ins.value = mhIns; ins.dataset.auto = '1'; } const sp = document.getElementById('sales-price'); if(sp && lotInfo){ setTimeout(() => { sp.value = lotInfo.purchasePrice > 0 ? Math.round(lotInfo.purchasePrice * 0.85) : ''; sp.dispatchEvent(new Event('input', {bubbles:true})); }, 0); }
   recalcAllInTotal();
 }
 
