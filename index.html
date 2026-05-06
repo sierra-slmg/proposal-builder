@@ -186,15 +186,15 @@ input[type=range]{width:100%;accent-color:var(--text);}
           <input type="number" id="target-pmt" min="50" step="10" placeholder="e.g. 350" oninput="calc()">
         </div>
       </div>
-      <div class="sl-row"><label>Interest rate</label><span id="rate-val">16.0%</span></div>
-                  <input type="range" id="rate-slider" min="8" max="24" step="0.5" value="16" oninput="onRate()" style="margin-bottom:12px;">
+      <div class="sl-row"><label>Interest rate</label><span id="rate-val">13.0%</span></div>
+                  <input type="range" id="rate-slider" min="8" max="24" step="0.5" value="13" oninput="onRate()" style="margin-bottom:12px;">
 
 
-      <input type="range" id="rate-slider" min="8" max="24" step="0.5" value="16" oninput="onRate()" style="margin-bottom:12px;">
+      <input type="range" id="rate-slider" min="8" max="24" step="0.5" value="13" oninput="onRate()" style="margin-bottom:12px;">
       <div class="sl-row"><label>Loan term</label><span id="term-val">20 yrs</span></div>
       <input type="range" id="term-slider" min="5" max="30" step="1" value="20" oninput="onTerm()" style="margin-bottom:12px;">
-      <div class="sl-row"><label>Down payment</label><span id="down-val">0%</span></div>
-      <input type="range" id="down-slider" min="0" max="20" step="1" value="0" oninput="onDown()" style="margin-bottom:4px;">
+      <div class="sl-row"><label>Down payment</label><span id="down-val">5%</span></div>
+      <input type="range" id="down-slider" min="0" max="20" step="1" value="5" oninput="onDown()" style="margin-bottom:4px;">
       <div style="font-size:11px;color:var(--text3);margin-bottom:12px;">Servicing $60/mo · Origination 3.5% · Lot rent / property tax / insurance vary by community
 <div class="g4" id="result-metrics" style="display:none;margin-bottom:14px;">
         <div class="mc"><div class="ml">Purchase price</div><div class="mv" id="r-price"></div></div>
@@ -6075,7 +6075,7 @@ function reopenProposal(id){
   switchMain('builder');showTab('proposal');notify('Loaded!');
 }
 
-init();setTimeout(()=>{const ts=document.getElementById('term-slider');const tv=document.getElementById('term-val');if(ts&&ts.value!=='20'){ts.value='20';if(tv)tv.textContent='20 yrs';if(typeof calc==='function'){try{calc();}catch(e){}}}},200);
+init();setTimeout(()=>{const ts=document.getElementById('term-slider');const tv=document.getElementById('term-val');if(ts&&ts.value!=='20'){ts.value='20';if(tv)tv.textContent='20 yrs';}const rs=document.getElementById('rate-slider');const rv=document.getElementById('rate-val');if(rs&&rs.value!=='13'){rs.value='13';if(rv)rv.textContent='13.0%';}const ds=document.getElementById('down-slider');const dv=document.getElementById('down-val');if(ds&&ds.value!=='5'){ds.value='5';if(dv)dv.textContent='5%';}if(typeof calc==='function'){try{calc();}catch(e){}}},200);
   // === Property Charges feature ===
 let LOTS_DATA = {};
 const SERVICING_FEE = 60;
