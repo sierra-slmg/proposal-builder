@@ -5824,13 +5824,13 @@ function calc(){
   let price=0,mpmt=0,loan=0,down=0;
   if(calcMode==='pp'){
     price=parseFloat(document.getElementById('sales-price').value)||0;
-    down=price*downPct;loan=price-down;
+    down=Math.min(1000,price);loan=price-down;
     mpmt=calcPmt(loan,rate,term);
   } else {
     const tp=parseFloat(document.getElementById('target-pmt').value)||0;
     if(tp<=0){clearResults();return;}
     loan=backsolve(tp,rate,term);
-    price=loan/(1-downPct);down=price*downPct;
+    down=1000;price=loan+down;
     mpmt=tp;
   }
   if(price<=0){clearResults();return;}
