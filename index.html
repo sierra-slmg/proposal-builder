@@ -6098,7 +6098,7 @@ function applyCommunityCharges(){
   if(!data) return;
   let lotInfo = null;
   if(lotEl && lotEl.value && data.lots){
-    const _v=String(lotEl.value).trim();const _k=_v.includes('||')?_v.split('||')[1].trim():_v;lotInfo=data.lots[_k]||null;
+    const _v=String(lotEl.value).trim();const _k=_v.includes('||')?_v.split('||')[1].trim():_v;lotInfo=data.lots[_k]||null;if(typeof H!=='undefined' && H && lotInfo && lotInfo.totalMonthly>0){H.tm=lotInfo.totalMonthly;setTimeout(()=>{if(typeof calc==='function'){try{calc();}catch(e){}}},50);}if(typeof H!=='undefined' && H && lotInfo && lotInfo.totalMonthly>0){H.tm=lotInfo.totalMonthly;setTimeout(()=>{if(typeof calc==='function'){try{calc();}catch(e){}}},50);}
   }
   const lotRent = (lotInfo && lotInfo.lotRent>0) ? lotInfo.lotRent : data.defaultLotRent;
   const mhTax = (lotInfo && lotInfo.mhTax>0) ? lotInfo.mhTax : data.defaultTax;
