@@ -195,7 +195,7 @@ input[type=range]{width:100%;accent-color:var(--text);}
       <input type="range" id="term-slider" min="5" max="30" step="1" value="20" oninput="onTerm()" style="margin-bottom:12px;">
       <div class="sl-row"><label>Down payment</label><span id="down-val">5%</span></div>
       <input type="range" id="down-slider" min="0" max="20" step="1" value="5" oninput="onDown()" style="margin-bottom:4px;">
-      <div style="font-size:11px;color:var(--text3);margin-bottom:12px;">Servicing $60/mo · Origination 3.5% · Lot rent / property tax / insurance vary by community
+      <div style="font-size:11px;color:var(--text3);margin-bottom:12px;">Servicing $60/mo · Origination 1.5% · Lot rent / property tax / insurance vary by community
 <div class="g4" id="result-metrics" style="display:none;margin-bottom:14px;">
         <div class="mc"><div class="ml">Purchase price</div><div class="mv" id="r-price"></div></div>
         <div class="mc"><div class="ml">Mortgage payment</div><div class="mv" id="r-mpmt"></div></div>
@@ -5817,7 +5817,7 @@ function backsolve(pmt,rate,yrs){
 
 function calc(){
   if(!H)return;
-  const TAX=45,INS=30,SVC=60,ORIG_RATE=0.035;
+  const TAX=45,INS=30,SVC=60,ORIG_RATE=0.015;
   const rate=parseFloat(document.getElementById('rate-slider').value)/100;
   const term=parseInt(document.getElementById('term-slider').value);
   const downPct=parseInt(document.getElementById('down-slider').value)/100;
@@ -5882,7 +5882,7 @@ function renderSummary(d){
   const rows=[
     ['Purchase price',f$(d.price)],
     ['Down payment',f$(d.down)+' ('+Math.round(d.down/d.price*100)+'%)'],
-    ['Origination fee (3.5%)',f$(d.orig)],
+    ['Origination fee (1.5%)',f$(d.orig)],
     ['Due at signing',f$(d.signing)],
     ['Loan amount',f$(d.loan)],
     ['Monthly mortgage',f$(d.mpmt)],
