@@ -5889,7 +5889,7 @@ function renderSummary(d){
 ['Lot rent',f$(getPropertyCharges().lotRent)],
 ['Tax escrow',f$(getPropertyCharges().mhTax)],
   ['Insurance escrow',f$(getPropertyCharges().mhInsurance)],
-    ['Servicing fee',f$(d.SVC)],
+    ['Servicing fee',f$(d.SVC)],...(()=>{const _li=(LOTS_DATA?.[document.getElementById('sel-prop')?.value]?.lots?.[(()=>{const v=document.getElementById('sel-lot')?.value;return v&&v.includes('||')?v.split('||')[1].trim():v;})()])||null;const r=[];if(_li){if(_li.homeRent>0)r.push(['Current home rent',f$(_li.homeRent)]);if(_li.ltoFee>0)r.push(['Current LTO monthly',f$(_li.ltoFee)]);}return r;})(),
   ];
   const _ch=getPropertyCharges();d.newTotal=Math.round((d.mpmt||0)+_ch.lotRent+_ch.mhTax+_ch.mhInsurance+(d.SVC||60));
   rows.forEach(([l,v])=>html+=`<div class="cr"><span class="rl">${l}</span><span class="rv">${v}</span></div>`);
