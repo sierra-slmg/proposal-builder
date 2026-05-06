@@ -6075,7 +6075,7 @@ function reopenProposal(id){
   switchMain('builder');showTab('proposal');notify('Loaded!');
 }
 
-init();
+init();setTimeout(()=>{const ts=document.getElementById('term-slider');const tv=document.getElementById('term-val');if(ts&&ts.value!=='20'){ts.value='20';if(tv)tv.textContent='20 yrs';if(typeof calc==='function'){try{calc();}catch(e){}}}},200);
   // === Property Charges feature ===
 let LOTS_DATA = {};
 const SERVICING_FEE = 60;
